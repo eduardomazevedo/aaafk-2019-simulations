@@ -1,0 +1,13 @@
+## Set job attributes
+#PBS -N matlab2015
+#PBS -l mem=10G,walltime=24:00:00,nodes=1:ppn=1
+#PBS -j oe
+#PBS -m abe
+#PBS -o ./log/
+#PBS -e ./log/
+
+# Run MATLAB
+cd $PBS_O_WORKDIR
+module load matlab/2015b
+module load gurobi/652
+scl enable python27 "matlab -nodisplay -nojvm < ./aass/run_aassCalibration.m"
