@@ -20,6 +20,8 @@ addpath(dirPath);
 spec;
 rmpath(dirPath);
 
+dirPath = [dirPath 'data/'];
+
 % Validate spec.m settings.
 if ~(iscell(qArray) && iscell(optionsArray))
     error('qArray and optionsArray must be cell arrays.');
