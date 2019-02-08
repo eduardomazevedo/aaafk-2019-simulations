@@ -1,4 +1,5 @@
 function calibrationGraph(directory,parameterset)
+addpath('output/')
 coloursforPaper
 directory = [directory '/output/calibration_output.mat'];
 load(directory)

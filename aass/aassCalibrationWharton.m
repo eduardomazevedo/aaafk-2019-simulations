@@ -55,7 +55,7 @@ if ~exist('./data/submissions-data.csv', 'file')
     error('Data not found.');
 end
 
-submissionsData = readtable('./data/submissions-data.csv', 'Delimiter', 'tab');
+submissionsData = readtable('./data/submissions-data.csv');
 if nTypes ~= size(submissionsData, 1)
     error('Number of types in spec must match data files.');
 end

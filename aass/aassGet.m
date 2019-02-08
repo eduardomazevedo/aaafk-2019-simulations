@@ -65,6 +65,8 @@ end
 addpath('./classes');
 SimulationArray = cell(nTasks, 1);
 
+dirPath = [dirPath 'data/'];
+
 for task = 1 : nTasks
     fileName = ['data-', num2str(task), '.mat'];
     fileName = fullfile(dirPath, fileName);

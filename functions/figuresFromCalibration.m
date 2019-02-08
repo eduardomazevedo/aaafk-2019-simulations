@@ -5,12 +5,11 @@ function  [simulation_calib,realmarket_stat] = figuresFromCalibration(directory)
 % struct with all these pool sizes. 
 
 addpath('aass', 'classes', 'functions','analysis');
-dataDirectory = [directory '/data'];
 warning('off','all')
-addpath(dataDirectory)
+addpath(directory)
 spec;
-addpath(dataDirectory)
-SS = aassGet(dataDirectory);
+addpath(directory)
+SS = aassGet(directory);
 numofSim = size(SS,1);
 
 % April 1st 2012
