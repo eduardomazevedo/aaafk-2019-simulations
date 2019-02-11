@@ -1,5 +1,6 @@
-function [overallTransPer,overallChains] = chainlength(SS)
+function [overallTransPer,overallChains] = chainlength(directory)
 
+SS = aassGet(directory);
 
             numberOfSim = size(SS,2);
             numberOfRep = size(SS,1);
@@ -40,9 +41,12 @@ function [overallTransPer,overallChains] = chainlength(SS)
                 overallTransPer{j} = percentTrans;
                 overallChains{j} = allChains;
                 
-             end
-cd output/
-save chain_lengths overallTransPer overallChains
-cd ..
-            
+            end
+             
+directory = [directory 'output/' ];
+fileName = ['chain_lengths.mat'];
+fileName = fullfile(directory, fileName);
+save(fileName,'overallTransPer','overallChains');
+
+
 end  

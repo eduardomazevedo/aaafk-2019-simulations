@@ -35,5 +35,10 @@ overallTypeTables{i,j} = summaryTable(overallTypeTable,1);
 end
 end
 
+directory = [directory 'output/' ];
+
+fileName = ['typeTables.mat'];
+fileName = fullfile(directory, fileName);
+save(fileName, 'overallTypeTables');
 
 end
