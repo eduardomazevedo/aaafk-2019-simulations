@@ -80,7 +80,7 @@ classdef simulation
             end
             if ~isfield(Simulation.options, 'bridgeTimeLimitODABO')
                 Simulation.options.bridgeTimeLimitODABO = ...
-                    14;
+                    30;
             end
             if ~isfield(Simulation.options, 'waitMarketTime1')
                 Simulation.options.waitMarketTime1 = 14;
@@ -89,10 +89,10 @@ classdef simulation
                 Simulation.options.waitMarketTime2 = 14;
             end
             if ~isfield(Simulation.options, 'acceptanceRate1')
-                Simulation.options.acceptanceRate1 = 0.8;
+                Simulation.options.acceptanceRate1 = 0.75;
             end
             if ~isfield(Simulation.options, 'acceptanceRate2')
-                Simulation.options.acceptanceRate2 = 0.8;
+                Simulation.options.acceptanceRate2 = 0.75;
             end
             if ~isfield(Simulation.options, 'matchFrequencyRegularMarket')
                 Simulation.options.matchFrequencyRegularMarket = 1;
