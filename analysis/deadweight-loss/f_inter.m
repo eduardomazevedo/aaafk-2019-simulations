@@ -9,11 +9,11 @@ function [averageProdApp,grid] = f_inter(options)
                
         if strcmp(options,'base')
             
-        addpath ./analysis/scale/
+        addpath ./analysis/scale
         
         run spec
         
-        rmpath ./analysis/scale/
+        rmpath ./analysis/scale
         
         clear jj nPoints options optionsArray
         
@@ -22,19 +22,20 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;        
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);
+      
 
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');               
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');               
 %%        
         elseif strcmp(options,'base_high')
             
-        addpath ./analysis/robustness/higher-waittime/scale/
+        addpath ./analysis/robustness/higher-waittime/scale
         
         run spec
         
-        rmpath ./analysis/robustness/higher-waittime/scale/
+        rmpath ./analysis/robustness/higher-waittime/scale
         
         clear jj nPoints options optionsArray
         
@@ -43,20 +44,21 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/robustness/higher-waittime/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;        
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+      
 
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');      
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');      
         
 %%      
         elseif strcmp(options,'base_normal')
             
-        addpath ./analysis/normal-weights/scale/
+        addpath ./analysis/normal-weights/scale
         
         run spec
         
-        rmpath ./analysis/normal-weights/scale/
+        rmpath ./analysis/normal-weights/scale
         
         clear jj nPoints options optionsArray
         
@@ -65,20 +67,21 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/normal-weights/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;        
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+      
 
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');  
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');  
         
 %%
         elseif strcmp(options,'base_low')
             
-        addpath ./analysis/robustness/lower-waittime/scale/
+        addpath ./analysis/robustness/lower-waittime/scale
         
         run spec
         
-        rmpath ./analysis/robustness/lower-waittime/scale/
+        rmpath ./analysis/robustness/lower-waittime/scale
         
         clear jj nPoints options optionsArray
         
@@ -87,11 +90,12 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/robustness/lower-waittime/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;        
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+      
 
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');               
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');               
         
 
 
@@ -111,22 +115,23 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/different-compositions/75th-participation/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+        S.scaleGrid = S.scaleGrid * nonChipRatioNKR;
         
       
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');         
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');         
          
         
         elseif strcmp(options,'75thsmall')
         %% If small-75th scale exercise is used
         
-        addpath ./analysis/scale-small-75th/
+        addpath ./analysis/scale-small-75th
         
         run spec
         
-        rmpath ./analysis/scale-small-75th/
+        rmpath ./analysis/scale-small-75th
         
         clear jj nPoints options optionsArray
         
@@ -135,44 +140,45 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/scale-small-75th/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
         
       
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');         
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');         
          
         
 
         elseif strcmp(options,'25th')
         %% If 25th scale exercise is used
-        addpath ./analysis/different-compositions/nkr-size/25th-participation/scale/
+        addpath ./analysis/different-compositions/25th-participation/scale/
         
         run spec
         
-        rmpath ./analysis/different-compositions/nkr-size/25th-participation/scale/
+        rmpath ./analysis/different-compositions/25th-participation/scale/
         
         clear jj nPoints options optionsArray
         
         nonChipRatioNKR = (1 - sum(strcmp(submissionsData.category(entries>0),'c'))/sum(entries)); 
         
         % Load the data from base scale exercise to find f_NKR        
-        S = readtable('./analysis/different-compositions/nkr-size/25th-participation/scale/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;        
+        S = readtable('./analysis/different-compositions/25th-participation/scale/output/scalesummary.csv');
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+      
 
 
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');         
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');         
          
         elseif strcmp(options,'25thsmall')
         %% If small-25th scale exercise is used
         
-        addpath ./analysis/scale-small-25th/
+        addpath ./analysis/scale-small-25th
         
         run spec
         
-        rmpath ./analysis/scale-small-25th/
+        rmpath ./analysis/scale-small-25th
         
         clear jj nPoints options optionsArray
         
@@ -181,17 +187,17 @@ function [averageProdApp,grid] = f_inter(options)
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/scale-small-25th/output/scalesummary.csv');
-        
-        scaleGrid_NKR = scaleGrid * nonChipRatioNKR;
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
         
       
         averageProdApp = ...
-            interp1(scaleGrid_NKR,S.f_mean,3:0.1:max(scaleGrid_NKR),'spline');         
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');         
          
         
                     
         end
         
-        grid = 3:0.1:max(scaleGrid_NKR);
+        grid = 3:0.1:max(S.scaleGrid);
 
 end

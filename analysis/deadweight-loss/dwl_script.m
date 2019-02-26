@@ -4,19 +4,21 @@ addpath('classes', 'aass', 'functions','data','analysis/deadweight-loss/');
 
 % Interpolate from the estimated f function
 options = 'base';
-[ f_base, f_NKR ] = f_inter(options);
+[prodApprox,grid] = f_inter(options);
 
 options = '75th';
-[ f_75th, ~, f_NKR_75th ] = f_inter(options);
+[prodApprox_75th,grid_75th] = f_inter(options);
 
 options = '25th';
-[f_25th,~,f_NKR_25th] = f_inter(options);
+[prodApprox_25th,grid_25th] = f_inter(options);
 
 % Load the submission data to check chip patient ratios. 
 submissionsData = readtable('./data/submissions-data.csv');
 
-centerData = readtable('./data/ctr-data.csv', 'Delimiter', 'tab');
-        
+centerData = readtable('./data/ctr-data.csv');
+
+centerData(centerData.n_pke_tx_per_year == 0,:) = [];  
+
 entries = (strcmp(submissionsData.category,'a') & submissionsData.d_arr_date_min>=19084) + ...
     ((strcmp(submissionsData.category,'p') |strcmp(submissionsData.category,'c'))...
     & submissionsData.r_arr_date_min>=19084);
@@ -25,10 +27,14 @@ nonChipRatioNKR = (1 - sum(strcmp(submissionsData.category(entries>0),'c'))/sum(
 
 % NKR qs and NKR level average production calculations
 
-q_NKR = sum(entries)*(365/977) * nonChipRatioNKR;
-ap_NKR = f_NKR/q_NKR;
-ap_NKR_25th = f_25th(2,find(f_25th(1,:)==round(q_NKR,2),1)) ./q_NKR;
-ap_NKR_75th = f_75th(2,find(f_75th(1,:)==round(q_NKR,2),1)) ./q_NKR;
+entriesChip = strcmp(submissionsData.category,'c')...
+    & submissionsData.r_arr_date_min>=19084;
+
+q_NKR = sum(entries) * nonChipRatioNKR;
+
+ap_NKR = (nansum(submissionsData.d_transplanted(entries>0)) + ...
+    nansum(submissionsData.r_transplanted(entriesChip>0))) / q_NKR ;
+
 
 % Hospitals productions
 
@@ -36,9 +42,9 @@ f_firms = centerData.n_internal_pke_per_year;
 f_firms(isnan(f_firms))=0;
 
 % DWL calculation
-[DWL_Base,Estimate_Q_Base] = dwl_calculation(f_firms,f_base,ap_NKR);
-[DWL_75th,Estimate_Q_75th] = dwl_calculation(f_firms,f_75th,ap_NKR_75th);
-[DWL_25th,Estimate_Q_25th] = dwl_calculation(f_firms,f_25th,ap_NKR_25th);
+[DWL_Base,Estimate_Q_Base] = dwl_calculation(f_firms,prodApprox,grid,ap_NKR);
+[DWL_75th,Estimate_Q_75th] = dwl_calculation(f_firms,prodApprox_75th,grid_75th,ap_NKR);
+[DWL_25th,Estimate_Q_25th] = dwl_calculation(f_firms,prodApprox_25th,grid_25th,ap_NKR);
 
 
 Center_Participation = centerData.nkr_ctr;
