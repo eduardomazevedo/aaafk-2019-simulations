@@ -1,7 +1,7 @@
 %% Choose scale grid
 scaleGrid = [linspace(5, 60, 20), ...
     linspace(65, 200, 10)];
-submissionsData = readtable('./data/submissions-data.csv', 'Delimiter', 'tab');
+submissionsData = readtable('./data/submissions-data.csv');
 % Count
 nPoints = length(scaleGrid);
  
