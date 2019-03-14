@@ -2,18 +2,45 @@ exercise = 'first';
 directory = ['./analysis/calibration/' exercise '-exercise/output/'];
 
 
+load([directory 'chain_lengths.mat'])
+load([directory 'poolSizeMoments.mat'])
+load([directory 'typeTables.mat'])
+load('./analysis/calibration/moment-conditions/realMoments.mat')
+
+
+
+overallChains1 = overallChains;
+overallpoolSize1 = overallpoolSize;
+overallTransPer1 = overallTransPer;
+overallTypeTables1 = overallTypeTables;
+
+%% Pool Moments
+exercise = 'second';
+directory = ['./analysis/calibration/' exercise '-exercise/output/'];
+
 
 load([directory 'chain_lengths.mat'])
 load([directory 'poolSizeMoments.mat'])
 load([directory 'typeTables.mat'])
 load('./analysis/calibration/moment-conditions/realMoments.mat')
 
+overallChains2 = overallChains;
+overallpoolSize2 = overallpoolSize;
+overallTransPer2 = overallTransPer;
+overallTypeTables2 = overallTypeTables;
+
+overallChains = [overallChains1([8 7 9]) overallChains2([2 4])  overallChains1(2)  overallChains2(1) ];
+overallpoolSize = [overallpoolSize1([8 7 9]) overallpoolSize2([2 4])  overallpoolSize1(2)  overallpoolSize2(1) ];
+overallTransPer = [overallTransPer1([8 7 9]) overallTransPer2([2 4])  overallTransPer1(2)  overallTransPer2(1) ];
+overallTypeTables = [overallTypeTables1(:,[8 7 9]) overallTypeTables2(:,[2 4])  overallTypeTables1(:,2)  overallTypeTables2(:,1) ];
+
+
 numPar = size(overallTypeTables,2);
 numSim = size(overallTypeTables,1);
 numSample = size(real.matchTypeVar,2);
-%% Pool Moments
 
 
+clear overallChains1 overallChains2 overallpoolSize1 overallpoolSize2 overallTransPer1 overallTransPer2 overallTypeTables1 overallTypeTables2
 %poolSize = [mean(mean(simAltPoolSize(1:330))) ; mean(mean(simAltPoolSize(331:660))) ; mean(mean(simAltPoolSize(661:end))) ;...
 %    mean(mean(simChipPoolSize(1:330))) ; mean(mean(simChipPoolSize(331:660))) ; mean(mean(simChipPoolSize(661:end))) ;...
 %    mean(mean(simPairPoolSize(1:330))) ; mean(mean(simPairPoolSize(331:660))) ; mean(mean(simPairPoolSize(661:end))) ;...
@@ -112,8 +139,19 @@ for i = 1 : numPar
 loss3(i) = mean(Moments{i} - RealMoments) * inv(eye(18).*(diag(cov(SampleMoments)))) * mean(Moments{i} - RealMoments)';
 end
 
-for j = 1 : 7
-for i = 1 : 7
+for j = 1 : numPar
+for i = 1 : numPar
 lossGeneral(j,i) = mean(Moments{i} - RealMoments)*inv(cov(Moments{j} - RealMoments))*mean(Moments{i} - RealMoments)';
 end
 end
+
+loss = [min(lossGeneral(:,1)) mean((lossGeneral(:,2:end)))]';
+loss(5) = mean(loss(5:7));
+
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-preferred.txt',loss(1),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-lower-fric.txt',loss(2),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-higher-fric.txt',loss(3),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-shorter-waittime.txt',loss(4),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-longer-waittime.txt',loss(5),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-shorter-bridge-waittime.txt',loss(6),'precision','%.0f')
+dlmwrite('./output-for-manuscript/constants/c-calibration-loss-function-longer-bridge-waittime.txt',loss(7),'precision','%.0f')

@@ -1,6 +1,6 @@
 addpath('aass', 'classes', 'functions');
 
-exercise = 'first';
+exercise = 'second';
 
 directory = ['./analysis/calibration/' exercise '-exercise/'];
 
