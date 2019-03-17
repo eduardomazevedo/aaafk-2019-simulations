@@ -19,12 +19,12 @@ entries = (strcmp(submissionsData.category,'a') & submissionsData.d_arr_date_min
 entries = (strcmp(submissionsData.category,'a') & submissionsData.d_arr_date_min>=19084) + ...
     ((strcmp(submissionsData.category,'p') |strcmp(submissionsData.category,'c'))...
     & submissionsData.r_arr_date_min>=19084 & ...
-    submissionsData.center_nkr_share<=prctile(submissionsData.center_nkr_share(entries>0),25));
+    submissionsData.center_nkr_share>prctile(submissionsData.center_nkr_share(entries>0),75));
 
 scaleGrid = scaleGrid * ...
     (1 - sum(strcmp(submissionsData.category(entries>0),'c'))/sum(entries));
 
-SS = aassGet('./analysis/different-compositions/25th-participation/scale_small/');
+SS = aassGet('./analysis/different-compositions/75th-participation/scale/');
 
 for i = 1:length(SS)
     if ~isempty(SS{i})
@@ -45,7 +45,7 @@ clear S
 S = table(f_mean,f_se,scaleGrid);
 
 
-writetable(S, './analysis/different-compositions/25th-participation/scale_small/output/scalesummary.csv');
+writetable(S, './analysis/different-compositions/75th-participation/scale/output/scalesummary.csv');
 
 
 
@@ -65,8 +65,8 @@ f = figure();
     xlim([0 max(S.scaleGrid)]);
     title('Production Function');
     xlabel('Arrival Rate');
-print('./output-for-manuscript/figures/production-function-25th-small.eps', '-depsc2');
-print('./output/figures/production-function-25th-small.eps', '-depsc2');
+print('./output-for-manuscript/figures/production-function-75th.eps', '-depsc2');
+print('./output/figures/production-function-75th.eps', '-depsc2');
 % Average product:
 f = figure();
     f.Position = [0, 0, 162*3, 100*3];
@@ -81,5 +81,5 @@ f = figure();
     title('Average Product');
     xlabel('Arrival Rate');
     % Save
-print('./output-for-manuscript/figures/average-product-func-25th-small.eps', '-depsc2');
-print('./output/figures/average-product-func-25th-small.eps', '-depsc2');
+print('./output-for-manuscript/figures/average-product-func-75th.eps', '-depsc2');
+print('./output/figures/average-product-func-75th.eps', '-depsc2');

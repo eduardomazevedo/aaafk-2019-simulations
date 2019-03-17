@@ -7,7 +7,7 @@ library(rpart)
 library(rpart.plot)
 library(rattle)
 
-setwd("~/Dropbox (Personal)/simulations-new/")
+setwd("~/Dropbox (Personal)/calibration2019//")
 
 # Load data
 data <- read.csv('./output/regressionTree.csv', header=TRUE) %>% tbl_df
