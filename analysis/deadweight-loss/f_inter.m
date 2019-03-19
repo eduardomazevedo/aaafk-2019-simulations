@@ -28,7 +28,29 @@ function [averageProdApp,grid] = f_inter(options)
 
         averageProdApp = ...
             interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');               
-%%        
+ %%
+        elseif strcmp(options,'basesmall')
+            
+        addpath ./analysis/scale_small
+        
+        run spec
+        
+        rmpath ./analysis/scale_small
+        
+        clear jj nPoints options optionsArray
+        
+        nonChipRatioNKR = (1 - sum(strcmp(submissionsData.category(entries>0),'c'))/sum(entries)); 
+        
+        % Load the data from base scale exercise to find f_NKR        
+        
+        S = readtable('./analysis/scale_small/output/scalesummary.csv');
+        [~,B] = unique(S.scaleGrid);
+        S = S(B,:);        
+      
+
+        averageProdApp = ...
+            interp1(S.scaleGrid,S.f_mean,3:0.1:max(S.scaleGrid),'spline');      
+ %%        
         elseif strcmp(options,'base_high')
             
         addpath ./analysis/robustness/higher-waittime/scale
@@ -54,11 +76,11 @@ function [averageProdApp,grid] = f_inter(options)
 %%      
         elseif strcmp(options,'base_normal')
             
-        addpath ./analysis/normal-weights/scale
+        addpath ./analysis/robustness/normal-weights/scale
         
         run spec
         
-        rmpath ./analysis/normal-weights/scale
+        rmpath ./analysis/robustness/normal-weights/scale
         
         clear jj nPoints options optionsArray
         
@@ -66,7 +88,7 @@ function [averageProdApp,grid] = f_inter(options)
         
         % Load the data from base scale exercise to find f_NKR        
         
-        S = readtable('./analysis/normal-weights/scale/output/scalesummary.csv');
+        S = readtable('./analysis/robustness/normal-weights/scale/output/scalesummary.csv');
         [~,B] = unique(S.scaleGrid);
         S = S(B,:);        
       
@@ -110,14 +132,13 @@ function [averageProdApp,grid] = f_inter(options)
         
         clear jj nPoints options optionsArray
         
-        nonChipRatioNKR = (1 - sum(strcmp(submissionsData.category(entries>0),'c'))/sum(entries)); 
+
         
         % Load the data from base scale exercise to find f_NKR        
         
         S = readtable('./analysis/different-compositions/75th-participation/scale/output/scalesummary.csv');
         [~,B] = unique(S.scaleGrid);
         S = S(B,:);        
-        S.scaleGrid = S.scaleGrid * nonChipRatioNKR;
         
       
         averageProdApp = ...
@@ -127,11 +148,11 @@ function [averageProdApp,grid] = f_inter(options)
         elseif strcmp(options,'75thsmall')
         %% If small-75th scale exercise is used
         
-        addpath ./analysis/scale-small-75th
+        addpath ./analysis/different-compositions/75th-participation/scale_small
         
         run spec
         
-        rmpath ./analysis/scale-small-75th
+        rmpath ./analysis/different-compositions/75th-participation/scale_small
         
         clear jj nPoints options optionsArray
         
@@ -139,7 +160,7 @@ function [averageProdApp,grid] = f_inter(options)
         
         % Load the data from base scale exercise to find f_NKR        
         
-        S = readtable('./analysis/scale-small-75th/output/scalesummary.csv');
+        S = readtable('./analysis/different-compositions/75th-participation/scale_small/output/scalesummary.csv');
         [~,B] = unique(S.scaleGrid);
         S = S(B,:);        
         
@@ -174,11 +195,11 @@ function [averageProdApp,grid] = f_inter(options)
         elseif strcmp(options,'25thsmall')
         %% If small-25th scale exercise is used
         
-        addpath ./analysis/scale-small-25th
+        addpath ./analysis/different-compositions/25th-participation/scale_small
         
         run spec
         
-        rmpath ./analysis/scale-small-25th
+        rmpath ./analysis/different-compositions/25th-participation/scale_small
         
         clear jj nPoints options optionsArray
         
@@ -186,7 +207,7 @@ function [averageProdApp,grid] = f_inter(options)
         
         % Load the data from base scale exercise to find f_NKR        
         
-        S = readtable('./analysis/scale-small-25th/output/scalesummary.csv');
+        S = readtable('./analysis/different-compositions/25th-participation/scale_small/output/scalesummary.csv');
         [~,B] = unique(S.scaleGrid);
         S = S(B,:);        
         

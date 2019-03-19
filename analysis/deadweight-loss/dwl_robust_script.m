@@ -3,15 +3,17 @@ clear all
 addpath('classes', 'aass', 'functions','data','analysis/deadweight-loss/');
 
 % Interpolate from the estimated f function
-options = 'basesmall';
+options = 'base';
 [prodApprox,grid] = f_inter(options);
 
-options = '75thsmall';
-[prodApprox_75th,grid_75th] = f_inter(options);
+options = 'base_high';
+[prodApprox_high,grid_high] = f_inter(options);
 
-options = '25thsmall';
-[prodApprox_25th,grid_25th] = f_inter(options);
+options = 'base_low';
+[prodApprox_low,grid_low] = f_inter(options);
 
+options = 'base_normal';
+[prodApprox_normal,grid_normal] = f_inter(options);
 % Load the submission data to check chip patient ratios. 
 submissionsData = readtable('./data/submissions-data.csv');
 
@@ -31,7 +33,6 @@ entriesChip = strcmp(submissionsData.category,'c')...
     & submissionsData.r_arr_date_min>=19084;
 
 q_NKR = sum(entries) * nonChipRatioNKR;
-
 ap_NKR = (nansum(submissionsData.d_transplanted(entries>0)) + ...
     nansum(submissionsData.r_transplanted(entriesChip>0))) / q_NKR ;
 
@@ -43,9 +44,9 @@ f_firms(isnan(f_firms))=0;
 
 % DWL calculation
 [DWL_Base,Estimate_Q_Base] = dwl_calculation(f_firms,prodApprox,grid,ap_NKR);
-[DWL_75th,Estimate_Q_75th] = dwl_calculation(f_firms,prodApprox_75th,grid_75th,ap_NKR);
-[DWL_25th,Estimate_Q_25th] = dwl_calculation(f_firms,prodApprox_25th,grid_25th,ap_NKR);
-
+[DWL_High,Estimate_Q_High] = dwl_calculation(f_firms,prodApprox_high,grid_high,ap_NKR);
+[DWL_Low,Estimate_Q_Low] = dwl_calculation(f_firms,prodApprox_low,grid_low,ap_NKR);
+[DWL_Normal,Estimate_Q_Normal] = dwl_calculation(f_firms,prodApprox_normal,grid_normal,ap_NKR);
 
 Center_Participation = centerData.nkr_ctr;
 Center = centerData.ctr;
@@ -59,6 +60,6 @@ Center_IntPkeTransplantationPerYear = centerData.n_internal_pke_per_year;
 T = table(Center,Center_NumTransplantationPerYear,...
     Center_PkeTransplantationPerYear, Center_LiveTransplantationPerYear,...
     Center_IntPkeTransplantationPerYear,...
-    Estimate_Q_Base,Estimate_Q_75th,Estimate_Q_25th,...
-    DWL_Base,DWL_75th,DWL_25th);
-writetable(T, './output/centers-deadweight-loss.csv');
+    Estimate_Q_Base,Estimate_Q_High,Estimate_Q_Low,Estimate_Q_Normal,...
+    DWL_Base,DWL_High,DWL_Low,DWL_Normal);
+writetable(T, './output/centers-deadweight-loss-robust.csv');

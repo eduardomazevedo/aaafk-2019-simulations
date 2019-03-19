@@ -4,7 +4,7 @@ addpath('./classes', './aass');
 
 
 %% Load data
-S = aassGet('./analysis/robustness/lower-waittime/matching-probability/data');
+S = aassGet('./analysis/robustness/lower-waittime/matching-probability/');
 
 
 %% Aggregate history table

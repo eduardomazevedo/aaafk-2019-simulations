@@ -4,7 +4,7 @@ addpath('./classes', './aass');
 
 
 %% Load data
-S = aassGet('./analysis/robustness/normal-weights/matching-probability/data');
+S = aassGet('./analysis/robustness/normal-weights/matching-probability/');
 
 
 %% Aggregate history table

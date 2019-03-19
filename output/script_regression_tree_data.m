@@ -6,8 +6,8 @@ submissionsData = readtable('./data/submissions-data.csv');
 
 gradientData = readtable( './analysis/gradient/output/gradient.csv');
 
-gradientData(strcmp(submissionsData.category(gradientData.index),'c'),:) = [];
-
+%gradientData(strcmp(submissionsData.category(gradientData.index),'c'),:) = [];
+%submissionsData = submissionsData(gradientData.index,:);
 % Demand Types
 
 overdemanded = ...

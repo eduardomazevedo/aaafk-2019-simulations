@@ -4,7 +4,7 @@ addpath('./classes', './aass');
 
 
 %% Load data
-S = aassGet('./analysis/different-compositions/25th-participation/matching-probability/data');
+S = aassGet('./analysis/different-compositions/25th-participation/matching-probability/');
 
 
 %% Aggregate history table
