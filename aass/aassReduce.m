@@ -28,6 +28,12 @@ for ii = 1 : length(S)
     end
 end
 
+if sum(t==0)>0
+    m(t==0) = [];
+    v(t==0) = [];
+    t(t==0) = [];
+end
+
 if sum(t) == 0
     m = NaN;
     se = NaN;

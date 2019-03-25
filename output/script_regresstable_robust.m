@@ -10,10 +10,10 @@ entries = (strcmp(submissionsData.category, 'a') & submissionsData.d_arr_date_mi
     & submissionsData.r_arr_date_min >= 19084);
 
 gradient = readtable( './analysis/gradient/output/gradient.csv');
-gradientHigh = readtable( './analysis/robustness/higher-waittime/matching-probability/output/gradient.csv');
-gradientLow = readtable( './analysis/robustness/lower-waittime/matching-probability/output/gradient.csv');
+gradientHigh = readtable( './analysis/robustness/higher-waittime/gradient/output/gradient.csv');
+gradientLow = readtable( './analysis/robustness/lower-waittime/gradient/output/gradient.csv');
 
-matchProb = readtable( './analysis/matching-probability/output/matching-probability-2.csv');
+matchProb = readtable( './analysis/matching-probability/output/matching-probability.csv');
 matchProbHigh = readtable( './analysis/robustness/higher-waittime/matching-probability/output/matching-probability.csv');
 matchProbLow = readtable( './analysis/robustness/lower-waittime/matching-probability/output/matching-probability.csv');
 

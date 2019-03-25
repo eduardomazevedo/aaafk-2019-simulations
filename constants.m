@@ -21,7 +21,7 @@ scaleGrid = scaleGrid * onlyDonor;
 % find(scalesummary.scaleGrid>arrivalPerYear*2,1)
 SS = readtable('./analysis/scale/output/scalesummary.csv');
 
-%SS2 = readtable('./analysis/scale-NKR-double/output/scalesummary.csv');
+SS2 = readtable('./analysis/scale-NKR-double/output/scalesummary.csv');
 
 
 NKRsize = find(abs(scaleGrid - arrivalPerYear)==min(abs(scaleGrid - arrivalPerYear)));
@@ -37,13 +37,13 @@ averageProdNKR = SS.f_mean(NKRsize)/scaleGrid(NKRsize);
 averageProdDoubleNKR = SS.f_mean(doubleNKR)/scaleGrid(doubleNKR);
 averageProdHalfNKR = SS.f_mean(halfNKR)/scaleGrid(halfNKR);
 
-%averageProdDoubleNKR = SS2.f_mean(1)/SS2.scaleGrid(1);
-%averageProdTripleNKR = SS2.f_mean(2)/SS2.scaleGrid(2);
-%averageProdQuadrupleNKR = SS2.f_mean(3)/SS2.scaleGrid(3);
+averageProdDoubleNKR = SS2.f_mean(1)/SS2.scaleGrid(1);
+averageProdTripleNKR = SS2.f_mean(2)/SS2.scaleGrid(2);
+averageProdQuadrupleNKR = SS2.f_mean(3)/SS2.scaleGrid(3);
 
-%dlmwrite('./output-for-manuscript/constants/c-average-product-double-nkr-size.txt',averageProdDoubleNKR,'precision','%.3f')
-%dlmwrite('./output-for-manuscript/constants/c-average-product-triple-nkr-size.txt',averageProdTripleNKR,'precision','%.3f')
-%dlmwrite('./output-for-manuscript/constants/c-average-product-quadruple-nkr-size.txt',averageProdQuadrupleNKR,'precision','%.3f')
+dlmwrite('./output-for-manuscript/constants/c-average-product-double-nkr-size.txt',averageProdDoubleNKR,'precision','%.3f')
+dlmwrite('./output-for-manuscript/constants/c-average-product-triple-nkr-size.txt',averageProdTripleNKR,'precision','%.3f')
+dlmwrite('./output-for-manuscript/constants/c-average-product-quadruple-nkr-size.txt',averageProdQuadrupleNKR,'precision','%.3f')
 
 
 centerDataDWL = readtable( './output/centers-deadweight-loss.csv');
