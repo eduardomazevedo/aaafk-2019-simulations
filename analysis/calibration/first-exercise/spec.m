@@ -1,4 +1,4 @@
-%% Calibration O donor
+% Calibration exercise
 submissionsData = readtable('./data/submissions-data.csv');
 %% n parallel simulations
 nSimulations = 100;

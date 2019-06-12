@@ -94,7 +94,7 @@ ggplot(data = collapsed_data, aes(x = df, y = matching_probability)) +
   scale_shape_manual(values=c(15,16, 17, 18,19)) +
   #geom_point(aes(color = Category),size = 2) +
   geom_abline(intercept = 0, slope = 1) +
-  xlim(-0.1,2) + ylim(0, 1) +
+  xlim(-0.1,2.05) + ylim(0, 1) +
   theme_minimal() +
   scale_colour_brewer() +
   theme(legend.text=element_text(size=10)) +
@@ -203,7 +203,7 @@ ggplot(data = collapsed_data, aes(x = df, y = matching_probability)) +
   scale_shape_manual(values=c(15,16, 17, 18,19)) +
   #geom_point(aes(color = Category),size = 2) +
   geom_abline(intercept = 0, slope = 1) +
-  xlim(-0.1,2) + ylim(0, 1) +
+  xlim(-0.1,2.05) + ylim(0, 1) +
   theme_minimal() +
   scale_colour_brewer() +
   theme(legend.text=element_text(size=10)) +
